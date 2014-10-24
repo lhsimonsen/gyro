@@ -4,7 +4,7 @@ var Stage = Stage || (function() {
   function Stage() {
     document.body.appendChild(Gyro.canvas);
     this.setCanvasSize();
-    this.ball = new Ball(Gyro.canvas.width * 0.5, Gyro.canvas.height * 0.5, 50);
+    this.ball = new Ball(Gyro.canvas.width * 0.5, Gyro.canvas.height * 0.5, 10);
     this.speed = {xv: 0, yv: 0};
   }
 
@@ -21,13 +21,16 @@ var Stage = Stage || (function() {
   };
 
   Stage.prototype.render = function() {
-    Gyro.context.clearRect(0, 0, this.width, this.height);
-    Gyro.context.save();
+    //Gyro.context.clearRect(0, 0, this.width, this.height);
+    //Gyro.context.save();
 
+    // Fade:
+    Gyro.context.fillStyle = 'rgba(0,0,0,0.05)';
+    Gyro.context.fillRect(0, 0, Gyro.canvas.width, Gyro.canvas.height);
     this.ball.draw();
 
-    Gyro.context.translate(this.width * 0.5, this.height * 0.5);
-    Gyro.context.restore();
+    //Gyro.context.translate(this.width * 0.5, this.height * 0.5);
+    //Gyro.context.restore();
   };
 
   Stage.prototype.setCanvasSize = function() {

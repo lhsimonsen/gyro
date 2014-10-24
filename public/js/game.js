@@ -4,11 +4,12 @@ var Game = Game || (function() {
   function Game() {
     this.stage = new Stage();
     this.handleDOMEvents();
-    this.loop();
+    // this.loop();
+    setInterval( this.loop.bind(this), 1000 / 60 );
   }
 
   Game.prototype.loop = function() {
-    requestAnimationFrame(this.loop.bind(this));
+    // requestAnimationFrame(this.loop.bind(this));
     this.stage.update();
   };
 

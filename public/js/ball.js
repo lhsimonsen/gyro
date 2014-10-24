@@ -39,9 +39,9 @@ var Ball = Ball || (function() {
 
 	Ball.prototype.draw = function() {
 		Gyro.context.beginPath();
-    	Gyro.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
-    	Gyro.context.closePath();
-    	Gyro.context.fillStyle = "#ff00ff";
+    	Gyro.context.fillStyle = "#fff";
+    	Gyro.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+    	// Gyro.context.closePath();
     	Gyro.context.fill();
 	}
 
