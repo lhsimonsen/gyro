@@ -8,5 +8,4 @@ var Gyro = Gyro || (function() {
   Gyro.gamma = 0;
 
   return Gyro;
-
 }());

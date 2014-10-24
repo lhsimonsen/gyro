@@ -12,36 +12,37 @@ var Ball = Ball || (function() {
 	Ball.prototype.update = function(axis) {
 		this.axis = axis;
 
-		if(this.velocity.y > this.axis.y)
-			this.velocity.y--;
-		if(this.velocity.y < this.axis.y)
-			this.velocity.y++;
-		if(this.velocity.x > this.axis.x)
-			this.velocity.x--;
-		if(this.velocity.x < this.axis.x)
-			this.velocity.x++;
-
-		this.velocity.y *= this.friction;
-		this.y += this.velocity.y;
-		this.velocity.x *= this.friction;
-		this.x += this.velocity.x;
-
-		if(this.x > (Gyro.canvas.width - 50))
-			this.x = Gyro.canvas.width - 50;
-		else if(this.x <= 50)
-			this.x = 50;
-
-		if(this.y > (Gyro.canvas.height - 50))
-			this.y = Gyro.canvas.height - 50;
-		else if(this.y <= 50)
-			this.y = 50;
+		this.getDirection('x');
+		this.getDirection('y');
+		this.getVelocity('x');
+		this.getVelocity('y');
+		this.wrap('x', 'width');
+		this.wrap('y', 'height');
 	};
+
+	Ball.prototype.getDirection = function(direction) {
+		if(this.velocity[direction] > this.axis[direction])
+			this.velocity[direction]--;
+		if(this.velocity[direction] < this.axis[direction])
+			this.velocity[direction]++;
+	}
+
+	Ball.prototype.getVelocity = function(direction) {
+		this.velocity[direction] *= this.friction;
+		this[direction] += this.velocity[direction];
+	}
+
+	Ball.prototype.wrap = function(direction, axis) {
+		if(this[direction] - (this.radius * 0.5) > Gyro.canvas[axis])
+			this[direction] = -this.radius;
+		else if(this[direction] + (this.radius * 0.5) <= 0)
+			this[direction] = Gyro.canvas[axis] + this.radius;
+	}
 
 	Ball.prototype.draw = function() {
 		Gyro.context.beginPath();
     	Gyro.context.fillStyle = "#fff";
     	Gyro.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
-    	// Gyro.context.closePath();
     	Gyro.context.fill();
 	}
 
